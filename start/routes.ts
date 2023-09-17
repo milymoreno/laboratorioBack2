@@ -18,8 +18,13 @@
 |
 */
 
+import { HttpContext } from '@adonisjs/core/build/standalone'
 import Route from '@ioc:Adonis/Core/Route'
+import Database from '@ioc:Adonis/Lucid/Database'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
+Route.get('/', async ({ response }: HttpContext) => {
+  const patients = Database.from('patients')
+  return response.json({
+    data: patients,
+  })
 })
